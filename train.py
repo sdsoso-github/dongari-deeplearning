@@ -7,7 +7,7 @@ dataset_dir = "dataset"
 IMG_SIZE = (128, 128)
 BATCH_SIZE = 32
 
-# 이미지 전처리 + 데이터 증강
+# 이미지 전처리 및 데이터 증강
 train_datagen = ImageDataGenerator(
     rescale=1./255,
     validation_split=0.2,
@@ -36,7 +36,7 @@ val_generator = train_datagen.flow_from_directory(
     subset='validation'
 )
 
-# 모델 구성 (더 깊은 CNN)
+# 모델 구성
 model = tf.keras.Sequential([
     tf.keras.Input(shape=(128, 128, 3)),
     tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
@@ -67,5 +67,5 @@ model.fit(
     epochs=1000
 )
 
-# 모델 저장 (.keras 포맷 사용)
+# 모델 저장
 model.save("models/cat_dog_model.keras")
