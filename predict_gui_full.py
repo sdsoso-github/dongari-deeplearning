@@ -5,7 +5,7 @@ import tensorflow as tf
 import numpy as np
 from tensorflow.keras.preprocessing import image as keras_image
 
-# 모델 로딩
+# 모델 로드
 model = tf.keras.models.load_model("models/cat_dog_model.keras")
 IMG_SIZE = (128, 128)
 
@@ -19,7 +19,7 @@ def predict_image(img_path):
     confidence = pred if pred > 0.5 else 1 - pred
     return label, confidence
 
-# 이미지 열기 및 예측 함수
+# 이미지 열기 함수
 def open_and_predict():
     file_path = filedialog.askopenfilename(
         title="이미지 파일 선택",
@@ -39,7 +39,7 @@ def open_and_predict():
     label, conf = predict_image(file_path)
     messagebox.showinfo("예측 결과", f"{label}입니다!\n확률: {conf:.2%}")
 
-# GUI 구성
+# UI 구성
 root = tk.Tk()
 root.title("고양이 vs 개 이미지 분류기")
 root.geometry("300x350")
