@@ -1,8 +1,8 @@
-import tensorflow as tf  # 딥러닝을 위한 TensorFlow 라이브러리
-from tensorflow.keras.preprocessing.image import ImageDataGenerator  # 이미지 불러오기 및 증강 도구
-import os  # 파일 경로를 다루기 위한 기본 라이브러리
+import tensorflow as tf
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import os 
 
-# 이미지들이 들어있는 폴더 위치 지정
+# 폴더 위치 지정
 dataset_dir = "dataset"
 
 # 이미지 크기와 한 번에 학습할 이미지 개수 설정
@@ -16,7 +16,7 @@ train_datagen = ImageDataGenerator(
     rotation_range=20,  # 이미지를 최대 20도까지 회전시켜 학습 데이터 다양화
     width_shift_range=0.2,  # 이미지를 좌우로 조금 이동
     height_shift_range=0.2,  # 이미지를 위아래로 조금 이동
-    shear_range=0.15,  # 이미지를 찌그러뜨리기 (전단 변형)
+    shear_range=0.15,  # 이미지 변형
     zoom_range=0.1,  # 이미지를 확대하거나 축소
     horizontal_flip=True,  # 이미지를 좌우 반전시켜서 다양한 경우 학습
     fill_mode='nearest'  # 이동 시 생기는 빈 공간을 주변 픽셀로 채움
@@ -27,7 +27,7 @@ train_generator = train_datagen.flow_from_directory(
     dataset_dir,  # 고양이/개 폴더가 들어있는 상위 폴더 경로
     target_size=IMG_SIZE,  # 이미지를 128x128 크기로 변경
     batch_size=BATCH_SIZE,  # 한 번에 불러올 이미지 수
-    class_mode='binary',  # 고양이/개 이진 분류 (0 또는 1)
+    class_mode='binary',  # 고양이/개 이진 분류
     subset='training'  # 전체 데이터 중 훈련용 데이터만 사용
 )
 
@@ -74,8 +74,8 @@ model.summary()
 model.fit(
     train_generator,  # 훈련 데이터 넣기
     validation_data=val_generator,  # 검증 데이터도 같이 넣기
-    epochs=1000  # 전체 데이터를 1000번 반복해서 학습
+    epochs=1000
 )
 
-# 학습이 끝난 모델을 저장함 (.keras 파일로)
+# 학습이 끝난 모델을 저장
 model.save("models/cat_dog_model.keras")
